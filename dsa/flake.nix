@@ -1,11 +1,19 @@
 {
-  description = "A very basic flake";
+  description = "Flake for storeup dev";
 
-  outputs = { self, nixpkgs }: {
-
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
-
-  };
+  # need an environment with node
+  outputs = { self, nixpkgs }: 
+    let
+      pkgs = nixpkgs.legacyPackages.x86_64-linux;
+    in
+    {
+      devShells.x86_64-linux.default = pkgs.mkShell {
+        buildInputs = with pkgs; [
+          postgresql
+          docker-compose
+          nodejs
+          doppler
+        ];
+      };
+    };
 }
