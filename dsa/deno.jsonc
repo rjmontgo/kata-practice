@@ -1,6 +1,6 @@
 {
   "tasks": {
-    "dev": "deno run --watch main.ts",
+    "generate": "cp -r ./_templates/* src",
     "clean": "cd src; ls | grep -xv \"_templates\" | xargs rm -rf; cd -"
   }
 }
